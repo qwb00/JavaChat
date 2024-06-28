@@ -22,13 +22,9 @@ public class Connection implements Closeable {
         }
     }
 
-    public void send(Message message) {
-        try {
-            synchronized (out) {
-                out.writeObject(message);
-            }
-        } catch (IOException e) {
-            ConsoleHelper.writeMessage("An error occurred while sending a message.");
+    public void send(Message message) throws IOException {
+        synchronized (out) {
+            out.writeObject(message);
         }
     }
 
