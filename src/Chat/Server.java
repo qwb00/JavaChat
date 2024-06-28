@@ -7,9 +7,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Server {
-    private static Map<String, Connection> connectionMap = new ConcurrentHashMap<>();
+    private static final Map<String, Connection> connectionMap = new ConcurrentHashMap<>();
     public static class Handler extends Thread {
-        private Socket socket;
+        private final Socket socket;
 
         public Handler(Socket socket) {
             this.socket = socket;
@@ -35,11 +35,14 @@ public class Server {
 
         public void serverMainLoop(Connection connection, String userName) throws IOException, ClassNotFoundException {
             while (true) {
-                Message message = connection.receive();
-                if (message.getType().equals(MessageType.TEXT.toString())) {
-                    sendBroadcastMessage(new Message(MessageType.TEXT, userName + ": " + message.getData()));
-                } else {
-                    ConsoleHelper.writeMessage("An error occurred while receiving a message.");
+                try {
+                    Message message = connection.receive();
+                    if (message.getType().equals(MessageType.TEXT.toString())) {
+                        sendBroadcastMessage(new Message(MessageType.TEXT, userName + ": " + message.getData()));
+                    }
+                } catch (Exception e) {
+                    ConsoleHelper.writeMessage("An error occurred while receiving a message or user exit the chat.");
+                    break;
                 }
             }
         }

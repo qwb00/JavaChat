@@ -9,8 +9,8 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class Client {
-    protected Connection connection;
-    private volatile boolean clientConnected = false;
+    protected static Connection connection;
+    private static volatile boolean clientConnected = false;
     public class SocketThread extends Thread {
         protected void processIncomingMessage(String message) {
             System.out.println(message);
@@ -130,7 +130,7 @@ public class Client {
         return new SocketThread();
     }
 
-    protected void sendTextMessage(String text) {
+    protected static void sendTextMessage(String text) {
         try {
             connection.send(new Message(MessageType.TEXT, text));
         } catch (Exception e) {

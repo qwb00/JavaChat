@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class ConsoleHelper {
-    private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     public static void writeMessage(String message) {
         System.out.println(message);
@@ -24,7 +24,7 @@ public class ConsoleHelper {
 
     public static int readInt() {
         String str;
-        int res = 0;
+        int res;
         while(true){
             try{
                 str = readString();
