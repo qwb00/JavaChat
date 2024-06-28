@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-//21 --- Компонент представление (View)
 public class ClientGuiView {
     private final ClientGuiController controller;
 
